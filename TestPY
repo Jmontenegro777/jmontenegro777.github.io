@@ -19,7 +19,7 @@ def main():
         except ValueError:
             print("Por favor, ingrese un número válido.")
         except KeyboardInterrupt:
-            print("\nPrograma terminado por el usuario.")
+            print("\nPrograma terminado por el usuario. Mi Perro")
             break
 
 if __name__ == "__main__":
