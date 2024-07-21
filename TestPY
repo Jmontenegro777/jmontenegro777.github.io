@@ -1,0 +1,26 @@
+from num2words import num2words
+
+def numero_a_letras(numero):
+    try:
+        # Convertir el número a palabras
+        palabras = num2words(numero, lang='es')
+        return palabras
+    except Exception as e:
+        return f"Error: {e}"
+
+def main():
+    while True:
+        try:
+            # Solicitar al usuario que ingrese un número
+            numero = float(input("Ingrese un número: "))
+            # Convertir el número a palabras y mostrar el resultado
+            resultado = numero_a_letras(numero)
+            print(f"El número {numero} en letras es: {resultado}")
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+        except KeyboardInterrupt:
+            print("\nPrograma terminado por el usuario.")
+            break
+
+if __name__ == "__main__":
+    main()
