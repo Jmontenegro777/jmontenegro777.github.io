@@ -1,14 +1,732 @@
-<script>
-    // get data from url 
-    let url ="https://pollysnips.s3.amazonaws.com/bostonEmployeeSalaries.json"
-    // let url ="https://pollysnips.s3.amazonaws.com/contacts.json"
-    fetch(url).then((response) => response.json())
-        .then(json => {
-            data = json
-            console.log(data)
-        })
-        .catch(error => {
-            throw(error);
-        })
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juan Díaz — Ingeniero de Software</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --blue-50:  #E6F1FB;
+      --blue-100: #B5D4F4;
+      --blue-600: #185FA5;
+      --blue-800: #0C447C;
+      --blue-900: #042C53;
+      --green-50: #EAF3DE;
+      --green-800:#27500A;
+      --gray-50:  #F7F6F3;
+      --gray-100: #EDECEA;
+      --gray-200: #D4D3CF;
+      --gray-400: #888780;
+      --gray-700: #3D3C3A;
+      --gray-900: #1A1A18;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    aside {
+      background: #fff;
+      border-right: 1px solid var(--gray-100);
+      padding: 2.5rem 1.75rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--blue-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      color: var(--blue-800);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px var(--blue-100);
+    }
+
+    .sidebar-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 21px;
+      color: var(--gray-900);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .sidebar-role {
+      font-size: 13px;
+      color: var(--blue-600);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .sidebar-location {
+      font-size: 12px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--gray-100);
+    }
+
+    .sidebar-section-title {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-400);
+      margin-bottom: 10px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .contact-item:hover { color: var(--blue-600); }
+
+    .contact-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-link:hover { background: var(--blue-50); color: var(--blue-800); }
+    .nav-link.active { background: var(--blue-50); color: var(--blue-800); font-weight: 500; }
+
+    .nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .nav-link.active .nav-dot { background: var(--blue-600); }
+
+    .availability-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 8px 12px;
+      background: var(--green-50);
+      color: var(--green-800);
+      border-radius: var(--radius-md);
+    }
+
+    .availability-dot {
+      width: 7px; height: 7px;
+      background: #63a828;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    main {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+
+    .page-section {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--gray-900);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-100);
+    }
+
+    .about-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--gray-700);
+      max-width: 640px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--blue-600);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .job-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .job-item:last-child { border-bottom: none; }
+
+    .job-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .job-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gray-900);
+    }
+
+    .job-period-badge {
+      font-size: 11px;
+      color: var(--gray-400);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 100px;
+      padding: 2px 10px;
+    }
+
+    .job-current {
+      font-size: 11px;
+      background: var(--green-50);
+      color: var(--green-800);
+      border-radius: 100px;
+      padding: 2px 10px;
+    }
+
+    .job-company {
+      font-size: 14px;
+      color: var(--blue-600);
+      margin-bottom: 10px;
+    }
+
+    .job-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      background: var(--blue-50);
+      color: var(--blue-800);
+      border-radius: 100px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+
+    .project-card:hover {
+      border-color: var(--blue-100);
+      transform: translateY(-3px);
+    }
+
+    .project-icon {
+      font-size: 20px;
+      width: 44px; height: 44px;
+      background: var(--blue-50);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .project-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-900);
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--gray-400);
+      flex: 1;
+    }
+
+    .project-links { display: flex; gap: 8px; margin-top: 4px; }
+
+    .project-link {
+      font-size: 12px;
+      color: var(--blue-600);
+      text-decoration: none;
+      padding: 4px 10px;
+      border: 1px solid var(--blue-100);
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+
+    .project-link:hover { background: var(--blue-50); }
+
+    .skills-block { margin-bottom: 2rem; }
+
+    .skills-block-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      color: var(--gray-700);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .skill-track {
+      flex: 1;
+      height: 5px;
+      background: var(--gray-100);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: var(--blue-600);
+      border-radius: 3px;
+      width: 0;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-pct {
+      font-size: 12px;
+      color: var(--gray-400);
+      width: 32px;
+      text-align: right;
+    }
+
+    .pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      font-size: 13px;
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: 100px;
+      color: var(--gray-700);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--blue-600);
+      width: 0%;
+      z-index: 999;
+      transition: width 0.1s linear;
+    }
+
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      aside {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-100);
+        padding: 1.5rem;
+      }
+      .nav-list { flex-direction: row; flex-wrap: wrap; }
+      main { padding: 1.5rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="layout">
+
+  <aside>
+    <div class="avatar-wrap">
+      <div class="avatar">JD</div>
+      <div>
+        <div class="sidebar-name">Juan Díaz</div>
+        <div class="sidebar-role">Ingeniero de Software Senior</div>
+        <div class="sidebar-location">Bogotá, Colombia</div>
+      </div>
+    </div>
+
+    <div class="availability-badge">
+      <div class="availability-dot"></div>
+      Disponible para oportunidades
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div>
+      <div class="sidebar-section-title">Contacto</div>
+      <div class="contact-list">
+        <a class="contact-item" href="mailto:juan@email.com">
+          <div class="contact-icon">✉</div>
+          juan@email.com
+        </a>
+        <a class="contact-item" href="https://linkedin.com/in/juandiaz" target="_blank">
+          <div class="contact-icon">in</div>
+          linkedin.com/in/juandiaz
+        </a>
+        <a class="contact-item" href="https://github.com/juandiaz" target="_blank">
+          <div class="contact-icon">&lt;/&gt;</div>
+          github.com/juandiaz
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div>
+      <div class="sidebar-section-title">Navegación</div>
+      <nav class="nav-list">
+        <a class="nav-link active" href="#sobre-mi"><div class="nav-dot"></div> Sobre mí</a>
+        <a class="nav-link" href="#experiencia"><div class="nav-dot"></div> Experiencia</a>
+        <a class="nav-link" href="#proyectos"><div class="nav-dot"></div> Proyectos</a>
+        <a class="nav-link" href="#habilidades"><div class="nav-dot"></div> Habilidades</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main>
+
+    <section class="page-section" id="sobre-mi">
+      <div class="section-header">
+        <h2 class="section-heading">Sobre mí</h2>
+        <div class="section-line"></div>
+      </div>
+      <p class="about-text">
+        Ingeniero de software con más de 6 años de experiencia diseñando y desarrollando sistemas escalables en entornos de alta disponibilidad. Apasionado por la arquitectura de microservicios, la integración continua y la entrega de soluciones de impacto real. Trabajo con equipos ágiles y disfruto resolver problemas complejos con soluciones elegantes.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">Años de experiencia</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Proyectos entregados</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">8</span>
+          <span class="stat-label">Tecnologías principales</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="experiencia">
+      <div class="section-header">
+        <h2 class="section-heading">Experiencia</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Ingeniero de Software Senior</span>
+          <span class="job-period-badge">2022 — Presente</span>
+          <span class="job-current">Actual</span>
+        </div>
+        <div class="job-company">TechCorp S.A.S · Bogotá</div>
+        <p class="job-desc">Lideré el diseño e implementación de una plataforma de pagos procesando más de 500k transacciones mensuales. Reduje la latencia promedio en un 40% mediante refactorización de microservicios y caché distribuida.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">AWS</span><span class="tag">Kafka</span><span class="tag">PostgreSQL</span><span class="tag">Microservicios</span>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Desarrollador Backend</span>
+          <span class="job-period-badge">2019 — 2022</span>
+        </div>
+        <div class="job-company">Innova Digital · Medellín</div>
+        <p class="job-desc">Desarrollé APIs REST y servicios internos para una startup de logística. Implementé integraciones con terceros (GPS, facturación electrónica DIAN) y automaticé pipelines de CI/CD con GitHub Actions.</p>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Docker</span><span class="tag">MongoDB</span><span class="tag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Desarrollador Junior</span>
+          <span class="job-period-badge">2018 — 2019</span>
+        </div>
+        <div class="job-company">Freelance</div>
+        <p class="job-desc">Construcción de sitios web y aplicaciones a medida para clientes de pequeñas y medianas empresas en Colombia.</p>
+        <div class="tags">
+          <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">PHP</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="proyectos">
+      <div class="section-header">
+        <h2 class="section-heading">Proyectos</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-icon">📊</div>
+          <div class="project-name">Plataforma de métricas en tiempo real</div>
+          <div class="project-desc">Dashboard para monitoreo de KPIs operativos con alertas automáticas. Maneja +1M eventos/día usando WebSockets y Redis Pub/Sub.</div>
+          <div class="tags"><span class="tag">React</span><span class="tag">Redis</span><span class="tag">Go</span></div>
+          <div class="project-links">
+            <a class="project-link" href="#">Demo</a>
+            <a class="project-link" href="#">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🔐</div>
+          <div class="project-name">Auth Service con OAuth 2.0</div>
+          <div class="project-desc">Servicio de autenticación centralizado compatible con múltiples proveedores sociales. Incluye MFA, sesiones y rotación de tokens.</div>
+          <div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">JWT</span></div>
+          <div class="project-links">
+            <a class="project-link" href="#">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">🚛</div>
+          <div class="project-name">Sistema de rastreo logístico</div>
+          <div class="project-desc">API de geolocalización y tracking de envíos para una startup. Integración con Google Maps y notificaciones SMS automáticas.</div>
+          <div class="tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Twilio</span></div>
+          <div class="project-links">
+            <a class="project-link" href="#">Demo</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="page-section" id="habilidades">
+      <div class="section-header">
+        <h2 class="section-heading">Habilidades</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-block">
+        <div class="skills-block-title">Lenguajes</div>
+        <div class="skill-row"><span class="skill-name">Python</span><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-row"><span class="skill-name">JavaScript</span><div class="skill-track"><div class="skill-fill" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
+        <div class="skill-row"><span class="skill-name">Go</span><div class="skill-track"><div class="skill-fill" data-pct="65"></div></div><span class="skill-pct">65%</span></div>
+        <div class="skill-row"><span class="skill-name">SQL</span><div class="skill-track"><div class="skill-fill" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
+      </div>
+
+      <div class="skills-block">
+        <div class="skills-block-title">Herramientas y plataformas</div>
+        <div class="skill-row"><span class="skill-name">AWS</span><div class="skill-track"><div class="skill-fill" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
+        <div class="skill-row"><span class="skill-name">Docker</span><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
+        <div class="skill-row"><span class="skill-name">Kubernetes</span><div class="skill-track"><div class="skill-fill" data-pct="60"></div></div><span class="skill-pct">60%</span></div>
+        <div class="skill-row"><span class="skill-name">Git / CI·CD</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+        <div class="skill-row"><span class="skill-name">Kafka</span><div class="skill-track"><div class="skill-fill" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
+      </div>
+
+      <div class="skills-block">
+        <div class="skills-block-title">Metodologías</div>
+        <div class="pills-row">
+          <span class="pill">Scrum / Agile</span>
+          <span class="pill">Microservicios</span>
+          <span class="pill">Domain-Driven Design</span>
+          <span class="pill">Test-Driven Development</span>
+          <span class="pill">CI / CD</span>
+          <span class="pill">Code Review</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  const sections = document.querySelectorAll('.page-section');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 }).observe && sections.forEach(s =>
+    new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 }).observe(s)
+  );
+
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.pct + '%';
+      }
+    });
+  }, { threshold: 0.1 }).observe && document.querySelectorAll('.skill-fill').forEach(f =>
+    new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.width = entry.target.dataset.pct + '%';
+        }
+      });
+    }, { threshold: 0.1 }).observe(f)
+  );
 </script>
+</body>
+</html>
