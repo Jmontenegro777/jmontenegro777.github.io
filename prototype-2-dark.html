@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JM — Oscuro & Elegante</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0A0A0C;
+      --bg-2:     #111115;
+      --bg-3:     #16161C;
+      --border:   rgba(255,255,255,0.06);
+      --border-g: rgba(212,175,95,0.25);
+      --text:     #E8E6E0;
+      --muted:    #7A786E;
+      --gold:     #C9A84C;
+      --gold-lt:  #E8C97A;
+      --gold-dim: rgba(201,168,76,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── Scanline subtle overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+
+    /* ── Progress bar gold ── */
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 1px; z-index: 200;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      width: 0; transform-origin: left; transition: width 0.1s linear;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 3rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,12,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+
+    .header-nav { display: flex; gap: 2.5rem; align-items: center; }
+    .header-nav a {
+      font-size: 11px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .header-nav a:hover { color: var(--gold); }
+    .header-contact {
+      font-size: 11px; letter-spacing: 0.1em;
+      border: 1px solid var(--border-g);
+      padding: 8px 20px;
+      color: var(--gold);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .header-contact:hover { background: var(--gold-dim); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    /* Ambient glow behind text */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 30%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); opacity: 0.6; }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+    .hero-name em { font-style: italic; color: var(--gold); }
+
+    .hero-role {
+      font-size: 15px; font-weight: 300;
+      color: var(--muted); max-width: 500px; line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: #0A0A0C;
+      padding: 14px 32px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    .btn-gold:hover { opacity: 0.85; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--border-g);
+      color: var(--gold);
+      padding: 14px 32px;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.3s;
+    }
+    .btn-outline:hover { background: var(--gold-dim); }
+
+    .hero-scroll {
+      position: absolute; bottom: 3rem; left: 3rem;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-scroll::after { content: ''; width: 40px; height: 1px; background: var(--muted); opacity: 0.4; }
+
+    /* ── Stats band ── */
+    .stats-band {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .stat-cell {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px; font-weight: 300;
+      color: var(--gold);
+      display: block; margin-bottom: 6px;
+    }
+    .stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── Main layout ── */
+    .wrapper { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    aside {
+      background: var(--bg-2);
+      border-right: 1px solid var(--border);
+      padding: 3rem 2rem;
+      position: sticky; top: 64px;
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 2rem;
+    }
+
+    .aside-section-title {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; opacity: 0.7;
+    }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      transition: color 0.3s;
+    }
+    .contact-item:hover { color: var(--gold); }
+    .contact-icon {
+      width: 28px; height: 28px;
+      background: var(--bg-3); border: 1px solid var(--border-g);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; color: var(--gold);
+    }
+
+    .nav-side { display: flex; flex-direction: column; gap: 2px; }
+    .nav-side a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; font-size: 12px; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: all 0.3s; border-left: 2px solid transparent;
+    }
+    .nav-side a:hover, .nav-side a.active {
+      color: var(--gold);
+      border-left-color: var(--gold);
+      background: var(--gold-dim);
+      padding-left: 16px;
+    }
+
+    .edu-item { margin-bottom: 1rem; }
+    .edu-degree { font-size: 12px; font-weight: 400; color: var(--text); line-height: 1.4; margin-bottom: 2px; }
+    .edu-school { font-size: 11px; color: var(--muted); }
+
+    /* ── Main content ── */
+    main { padding: 3rem; display: flex; flex-direction: column; gap: 4rem; }
+
+    .section-head {
+      display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 300; letter-spacing: 0.02em;
+      white-space: nowrap; color: var(--text);
+    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .section-num { font-size: 11px; color: var(--gold); opacity: 0.6; }
+
+    /* ── Job items ── */
+    .job-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 12px;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+    .job-card:hover { border-color: var(--border-g); }
+    .job-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: transparent;
+      transition: background 0.3s;
+    }
+    .job-card:hover::before { background: var(--gold); }
+
+    .job-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .job-title { font-size: 15px; font-weight: 400; color: var(--text); }
+    .job-period {
+      font-size: 10px; letter-spacing: 0.1em;
+      color: var(--muted); background: var(--bg-3);
+      border: 1px solid var(--border); padding: 4px 12px;
+    }
+    .job-current { background: var(--gold-dim); color: var(--gold); border-color: var(--border-g); }
+    .job-company { font-size: 12px; color: var(--gold); margin-bottom: 1.25rem; letter-spacing: 0.05em; opacity: 0.85; }
+    .job-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    .job-list li {
+      font-size: 13px; color: var(--muted); padding-left: 18px;
+      position: relative; line-height: 1.65;
+    }
+    .job-list li::before {
+      content: '›'; position: absolute; left: 0; color: var(--gold); font-size: 16px; top: -1px;
+    }
+
+    /* ── Tags ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 10px; letter-spacing: 0.08em;
+      padding: 3px 10px;
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px solid var(--border-g);
+    }
+
+    /* ── Skills ── */
+    .skills-group { margin-bottom: 2.5rem; }
+    .skills-group-title {
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem; opacity: 0.7;
+    }
+    .skill-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 14px; }
+    .skill-name { font-size: 13px; font-weight: 300; color: var(--muted); width: 190px; flex-shrink: 0; }
+    .skill-track {
+      flex: 1; height: 2px;
+      background: rgba(255,255,255,0.05);
+      position: relative;
+    }
+    .skill-fill {
+      position: absolute; top: 0; left: 0; height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    .skill-pct { font-size: 11px; color: var(--gold); width: 32px; text-align: right; opacity: 0.7; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-size: 12px; padding: 7px 18px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      color: var(--muted); letter-spacing: 0.03em;
+      transition: all 0.3s;
+    }
+    .pill:hover { border-color: var(--border-g); color: var(--gold); }
+
+    /* ── Certs ── */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .cert-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .cert-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .cert-card:hover { border-color: var(--border-g); }
+    .cert-card:hover::after { opacity: 1; }
+    .cert-name { font-size: 13px; font-weight: 400; color: var(--text); line-height: 1.4; }
+    .cert-issuer { font-size: 11px; color: var(--gold); opacity: 0.75; }
+
+    /* ── Availability ── */
+    .avail-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.08em;
+      padding: 8px 16px;
+      background: rgba(100, 180, 100, 0.07);
+      border: 1px solid rgba(100, 180, 100, 0.2);
+      color: #7fc47f;
+    }
+    .avail-dot { width: 6px; height: 6px; background: #7fc47f; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+    /* ── Ornamental divider ── */
+    .ornament {
+      text-align: center; color: var(--gold); opacity: 0.3;
+      font-size: 18px; letter-spacing: 8px; margin: 0.5rem 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .wrapper { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; }
+      .hero-name { font-size: 52px; }
+      .stats-band { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 0 1.5rem; }
+      .header-nav { display: none; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      main { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header>
+  <span class="logo">J·M·P</span>
+  <nav class="header-nav">
+    <a href="#experiencia">Experiencia</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#certificaciones">Certificaciones</a>
+  </nav>
+  <a class="header-contact" href="mailto:jmontene@hotmail.com">Contactar</a>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-eyebrow">VP Transformación &amp; Tecnología · CTO · Bogotá, Colombia</div>
+  <h1 class="hero-name">Joaquín<br><em>Montenegro</em><br>Perdomo</h1>
+  <p class="hero-role">Ejecutivo senior en tecnología financiera con más de 25 años arquitectando transformaciones digitales de escala en América Latina.</p>
+  <div class="hero-actions">
+    <a class="btn-gold" href="mailto:jmontene@hotmail.com">Iniciar conversación</a>
+    <a class="btn-outline" href="https://www.linkedin.com/in/joaquin-montenegro-perdomo-33226724/" target="_blank">Perfil LinkedIn</a>
+  </div>
+  <div class="hero-scroll">Desplazar</div>
+</section>
+
+<!-- ── Stats ── -->
+<div class="stats-band">
+  <div class="stat-cell">
+    <span class="stat-num">25+</span>
+    <span class="stat-lbl">Años de experiencia</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">+1M</span>
+    <span class="stat-lbl">Clientes en Lulo Bank</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">$70M</span>
+    <span class="stat-lbl">Presupuesto USD gestionado</span>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- ── Sidebar ── -->
+  <aside>
+    <div class="avail-badge">
+      <span class="avail-dot"></span>
+      Disponible para oportunidades
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div>
+      <div class="aside-section-title">Contacto</div>
+      <a class="contact-item" href="tel:+57000001536">
+        <div class="contact-icon">✆</div>+57 *** *** 1536
+      </a>
+      <a class="contact-item" href="mailto:jmontene@hotmail.com">
+        <div class="contact-icon">✉</div>jmontene@hotmail.com
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/joaquin-montenegro-perdomo-33226724/" target="_blank">
+        <div class="contact-icon">in</div>LinkedIn
+      </a>
+    </div>
+
+    <div>
+      <div class="aside-section-title">Idiomas</div>
+      <a class="contact-item" style="pointer-events:none">
+        <div class="contact-icon">ES</div>Español — Nativo
+      </a>
+      <a class="contact-item" style="pointer-events:none">
+        <div class="contact-icon">EN</div>Inglés — Intermedio
+      </a>
+    </div>
+
+    <div>
+      <div class="aside-section-title">Formación académica</div>
+      <div class="edu-item">
+        <div class="edu-degree">Certificate CTO</div>
+        <div class="edu-school">MIT Professional Education · 2023–2024</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Espec. Comercio Electrónico</div>
+        <div class="edu-school">Uniandes · 2007</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Espec. Administración</div>
+        <div class="edu-school">Colegio Mayor del Rosario · 1998–1999</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Ingeniería de Sistemas</div>
+        <div class="edu-school">Politécnico Grancolombiano · 1991</div>
+      </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div>
+      <div class="aside-section-title">Navegación</div>
+      <nav class="nav-side">
+        <a href="#experiencia" class="active">Experiencia</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#certificaciones">Certificaciones</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- Experiencia -->
+    <section id="experiencia">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Experiencia profesional</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Vicepresidente de Transformación y Tecnología</span>
+          <div style="display:flex;gap:6px">
+            <span class="job-period">May 2025 — Actualidad</span>
+            <span class="job-period job-current">Actual</span>
+          </div>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="job-list">
+          <li>Definición de la estrategia de transformación cultural y digital del Grupo GNB.</li>
+          <li>Estructuración y gestión de presupuesto USD 70M para la agenda de transformación.</li>
+          <li>Diseño e implementación de la Fábrica de Transformación bajo modelo ágil.</li>
+          <li>Lanzamiento nodo Bre-B Servibanca, onboarding digital en 5 min, crédito digital de libranzas.</li>
+          <li>Data Lake en Snowflake para analítica avanzada e inteligencia artificial.</li>
+          <li>Cultura ágil mediante OKRs, capacitación masiva (Platzi) e IA.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Transformación Digital</span><span class="tag">Cloud</span>
+          <span class="tag">Snowflake</span><span class="tag">IA</span>
+          <span class="tag">OKRs</span><span class="tag">Agile</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Vicepresidente de Tecnología (CTO)</span>
+          <span class="job-period">Sep 2020 — Abr 2025</span>
+        </div>
+        <div class="job-company">Lulo Bank S.A. — Primer Banco Digital en Colombia · Bogotá</div>
+        <ul class="job-list">
+          <li>Activación y operación del banco digital autorizado por la Superintendencia Financiera de Colombia.</li>
+          <li>Más de 1 millón de clientes en los primeros años de operación.</li>
+          <li>Arquitectura 100% Cloud, microservicios y contenedores, uptime superior al 99,5%.</li>
+          <li>Gestión integral del ecosistema bajo modelos Agile, DevOps y CI/CD.</li>
+          <li>Miembro del comité de inversiones; presupuesto USD 30M.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Cloud Nativo</span><span class="tag">Microservicios</span>
+          <span class="tag">DevOps</span><span class="tag">CI/CD</span>
+          <span class="tag">Banca Digital</span><span class="tag">Data Governance</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Vicepresidente de Proyectos</span>
+          <span class="job-period">Ene 2019 — Ago 2020</span>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="job-list">
+          <li>Dirección de la transformación tecnológica y creación de Lulo Bank S.A.</li>
+          <li>Reporte directo a accionistas (Familia Gilinski); comité de inversiones USD 50M.</li>
+          <li>Definición del stack tecnológico, arquitectura cloud y modelo operativo ágil.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Arquitectura Cloud</span><span class="tag">Licencia Bancaria</span><span class="tag">Estrategia TI</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Vicepresidente de Tecnología</span>
+          <span class="job-period">Jul 2017 — Dic 2018</span>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="job-list">
+          <li>Planeación estratégica de tecnología para múltiples empresas del grupo.</li>
+          <li>Gestión de más de 220 colaboradores y presupuestos cercanos a USD 70M.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Banca Digital</span><span class="tag">Gestión de Equipos</span><span class="tag">Presupuesto TI</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Gerente de Tecnología y Banca Electrónica</span>
+          <span class="job-period">Jul 1997 — Jun 2017</span>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="job-list">
+          <li>Liderazgo tecnológico en procesos M&A (HSBC, Sudameris, Tequendama).</li>
+          <li>Modernización de banca virtual, medios de pago y plataformas core.</li>
+          <li>Implementación de marcos regulatorios (SARC, Circulares SFC, COBIT, ITIL).</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">M&A</span><span class="tag">COBIT</span><span class="tag">ITIL</span><span class="tag">Core Bancario</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-top">
+          <span class="job-title">Experiencia inicial</span>
+          <span class="job-period">1992 — 1997</span>
+        </div>
+        <ul class="job-list">
+          <li><strong style="color:var(--text)">Director de Proyectos</strong> — BV Software Colombia (1996–1997)</li>
+          <li><strong style="color:var(--text)">Gerente de Sistemas</strong> — Crecer S.A. (1994–1996)</li>
+          <li><strong style="color:var(--text)">Analista de Sistemas</strong> — Banco Colpatria (1992–1994)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Habilidades</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-group">
+        <div class="skills-group-title">Estrategia y liderazgo tecnológico</div>
+        <div class="skill-row"><span class="skill-name">Transformación Digital</span><div class="skill-track"><div class="skill-fill" data-pct="97"></div></div><span class="skill-pct">97%</span></div>
+        <div class="skill-row"><span class="skill-name">Banca Digital</span><div class="skill-track"><div class="skill-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-row"><span class="skill-name">Arquitectura Cloud</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+        <div class="skill-row"><span class="skill-name">Gobierno de Datos</span><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
+        <div class="skill-row"><span class="skill-name">Inteligencia Artificial</span><div class="skill-track"><div class="skill-fill" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
+      </div>
+
+      <div class="skills-group">
+        <div class="skills-group-title">Gestión ejecutiva</div>
+        <div class="skill-row"><span class="skill-name">Liderazgo de Equipos</span><div class="skill-track"><div class="skill-fill" data-pct="96"></div></div><span class="skill-pct">96%</span></div>
+        <div class="skill-row"><span class="skill-name">Gestión Presupuestal</span><div class="skill-track"><div class="skill-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-row"><span class="skill-name">OKRs / Agile</span><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-row"><span class="skill-name">Gestión del Cambio</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+      </div>
+
+      <div class="skills-group">
+        <div class="skills-group-title">Metodologías y marcos</div>
+        <div class="pills">
+          <span class="pill">DevOps / CI·CD</span>
+          <span class="pill">Microservicios</span>
+          <span class="pill">Scrum / Kanban</span>
+          <span class="pill">COBIT</span>
+          <span class="pill">ITIL</span>
+          <span class="pill">Snowflake</span>
+          <span class="pill">Data Lake</span>
+          <span class="pill">Analítica Avanzada</span>
+          <span class="pill">Regulación SFC</span>
+          <span class="pill">M&A Tecnológico</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificaciones -->
+    <section id="certificaciones">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Certificaciones</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-name">Alta Dirección en Tecnología (CTO)</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Cloud &amp; DevOps / Transformación Continua</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Machine Learning para Toma de Decisiones</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Software Architecture &amp; Design of Large Systems</div>
+          <div class="cert-issuer">Educación continua</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Liderazgo, OKRs y Gestión Ágil</div>
+          <div class="cert-issuer">Educación continua</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">IA para Ejecutivos</div>
+          <div class="cert-issuer">Educación continua</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  // Active nav
+  document.querySelectorAll('main section[id]').forEach(section => {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        document.querySelectorAll('.nav-side a').forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`.nav-side a[href="#${section.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    }, { threshold: 0.3 }).observe(section);
+  });
+
+  // Skill bars
+  document.querySelectorAll('.skill-fill').forEach(f => {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) f.style.width = f.dataset.pct + '%';
+    }, { threshold: 0.1 }).observe(f);
+  });
+</script>
+</body>
+</html>
