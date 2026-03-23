@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JM — Moderno Minimalista</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --border: #EBEBEB;
+      --text: #111111;
+      --muted: #888888;
+      --accent: #111111;
+      --accent-light: #F4F4F4;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* Top bar */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,250,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 60px;
+    }
+    .topbar-name { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; }
+    .topbar-nav { display: flex; gap: 2rem; }
+    .topbar-nav a { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; }
+    .topbar-nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      margin-top: 60px;
+      padding: 7rem 4rem 5rem;
+      max-width: 860px;
+    }
+    .hero-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-role { font-size: 16px; color: var(--muted); font-weight: 300; max-width: 520px; line-height: 1.7; }
+    .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--text); color: #fff;
+      padding: 11px 22px; border-radius: 2px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); color: var(--muted);
+      padding: 11px 22px; border-radius: 2px;
+      font-size: 12px; font-weight: 400;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+    /* Stats strip */
+    .stats-strip {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      margin: 0 4rem;
+    }
+    .stat-cell { padding: 2rem 1rem; border-right: 1px solid var(--border); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; display: block; margin-bottom: 4px; }
+    .stat-lbl { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* Content */
+    .content { max-width: 860px; margin: 0 auto; padding: 5rem 4rem; display: flex; flex-direction: column; gap: 5rem; }
+
+    .section-label {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Experience */
+    .exp-item { display: grid; grid-template-columns: 160px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-period { font-size: 11px; color: var(--muted); padding-top: 3px; line-height: 1.6; }
+    .exp-title { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+    .exp-company { font-size: 13px; color: var(--muted); margin-bottom: 1rem; }
+    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .exp-list li { font-size: 13px; color: #444; padding-left: 12px; position: relative; line-height: 1.65; }
+    .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1rem; }
+    .tag { font-size: 10px; letter-spacing: 0.05em; padding: 3px 8px; border: 1px solid var(--border); color: var(--muted); border-radius: 2px; }
+
+    /* Skills */
+    .skill-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 12px; }
+    .skill-name { font-size: 13px; width: 180px; flex-shrink: 0; color: #333; }
+    .skill-track { flex: 1; height: 1px; background: var(--border); position: relative; }
+    .skill-fill { position: absolute; top: 0; left: 0; height: 1px; background: var(--text); width: 0; transition: width 1s ease; }
+    .skill-pct { font-size: 11px; color: var(--muted); width: 30px; text-align: right; }
+
+    /* Certs */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--border); }
+    .cert-card { background: var(--surface); padding: 1.5rem; }
+    .cert-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; line-height: 1.4; }
+    .cert-issuer { font-size: 11px; color: var(--muted); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    footer small { font-size: 11px; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 11px; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+
+    .badge-available { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #2a7a2a; background: #f0faf0; border: 1px solid #c8e6c9; border-radius: 2px; padding: 4px 10px; margin-left: 1rem; }
+    .dot-green { width: 5px; height: 5px; background: #4caf50; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <span class="topbar-name">JOAQUÍN MONTENEGRO</span>
+  <div class="topbar-nav">
+    <a href="#experiencia">Experiencia</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#certificaciones">Certificaciones</a>
+    <a href="mailto:jmontene@hotmail.com">Contacto</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-label">VP Transformación & Tecnología · CTO</div>
+  <h1 class="hero-name">Joaquín<br>Montenegro<br>Perdomo</h1>
+  <p class="hero-role">Ejecutivo senior en tecnología y transformación digital con más de 25 años liderando estrategias en el sector financiero latinoamericano.</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="mailto:jmontene@hotmail.com">Contactar</a>
+    <a class="btn-ghost" href="https://www.linkedin.com/in/joaquin-montenegro-perdomo-33226724/" target="_blank">LinkedIn</a>
+    <span class="badge-available"><span class="dot-green"></span> Disponible</span>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-cell">
+    <span class="stat-num">25+</span>
+    <span class="stat-lbl">Años de experiencia</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">+1M</span>
+    <span class="stat-lbl">Clientes en Lulo Bank</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">$70M</span>
+    <span class="stat-lbl">Presupuesto gestionado</span>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- Experiencia -->
+  <section id="experiencia">
+    <div class="section-label">Experiencia profesional</div>
+
+    <div class="exp-item">
+      <div class="exp-period">May 2025<br>Actualidad<br><br><span style="background:#f0faf0;color:#2a7a2a;padding:2px 6px;font-size:10px;border-radius:2px;">Actual</span></div>
+      <div>
+        <div class="exp-title">VP de Transformación y Tecnología</div>
+        <div class="exp-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="exp-list">
+          <li>Estrategia de transformación cultural y digital del Grupo GNB.</li>
+          <li>Gestión de presupuesto USD 70M para la agenda de transformación.</li>
+          <li>Fábrica de Transformación ágil: Canales, Datos, Analítica Avanzada e IA.</li>
+          <li>Lanzamiento nodo Bre-B Servibanca y onboarding digital en 5 minutos.</li>
+          <li>Data Lake en Snowflake para analítica avanzada e inteligencia artificial.</li>
+        </ul>
+        <div class="tags"><span class="tag">Transformación Digital</span><span class="tag">Cloud</span><span class="tag">Snowflake</span><span class="tag">IA</span><span class="tag">OKRs</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Sep 2020<br>Abr 2025</div>
+      <div>
+        <div class="exp-title">Vicepresidente de Tecnología (CTO)</div>
+        <div class="exp-company">Lulo Bank S.A. — Primer Banco Digital en Colombia</div>
+        <ul class="exp-list">
+          <li>Creación del primer banco digital 100% cloud en Colombia.</li>
+          <li>Más de 1 millón de clientes en los primeros años de operación.</li>
+          <li>Arquitectura cloud modular, microservicios, uptime > 99,5%.</li>
+          <li>Gestión de presupuesto USD 30M. Miembro comité de inversiones.</li>
+        </ul>
+        <div class="tags"><span class="tag">Cloud Nativo</span><span class="tag">Microservicios</span><span class="tag">DevOps</span><span class="tag">Banca Digital</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">Jul 1997<br>Abr 2020</div>
+      <div>
+        <div class="exp-title">Diversos roles de VP y Gerencia Tecnológica</div>
+        <div class="exp-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="exp-list">
+          <li>VP de Proyectos (2019–2020): creación y arquitectura de Lulo Bank.</li>
+          <li>VP de Tecnología (2017–2018): 220+ colaboradores, USD 70M de presupuesto.</li>
+          <li>Gerente de Tecnología y Banca Electrónica (1997–2017): fusiones M&A, modernización core.</li>
+        </ul>
+        <div class="tags"><span class="tag">Arquitectura Cloud</span><span class="tag">M&A</span><span class="tag">COBIT</span><span class="tag">ITIL</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">1992 — 1997</div>
+      <div>
+        <div class="exp-title">Experiencia inicial</div>
+        <ul class="exp-list">
+          <li>Director de Proyectos — BV Software Colombia (1996–1997)</li>
+          <li>Gerente de Sistemas — Crecer S.A. (1994–1996)</li>
+          <li>Analista de Sistemas — Banco Colpatria (1992–1994)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Habilidades -->
+  <section id="habilidades">
+    <div class="section-label">Habilidades</div>
+    <div class="skill-row"><span class="skill-name">Transformación Digital</span><div class="skill-track"><div class="skill-fill" data-pct="97"></div></div><span class="skill-pct">97%</span></div>
+    <div class="skill-row"><span class="skill-name">Banca Digital</span><div class="skill-track"><div class="skill-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
+    <div class="skill-row"><span class="skill-name">Arquitectura Cloud</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+    <div class="skill-row"><span class="skill-name">Liderazgo de Equipos</span><div class="skill-track"><div class="skill-fill" data-pct="96"></div></div><span class="skill-pct">96%</span></div>
+    <div class="skill-row"><span class="skill-name">Gobierno de Datos</span><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
+    <div class="skill-row"><span class="skill-name">Inteligencia Artificial</span><div class="skill-track"><div class="skill-fill" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
+    <div class="skill-row"><span class="skill-name">OKRs / Agile</span><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+  </section>
+
+  <!-- Certificaciones -->
+  <section id="certificaciones">
+    <div class="section-label">Certificaciones</div>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-name">Alta Dirección en Tecnología (CTO)</div><div class="cert-issuer">MIT Professional Education</div></div>
+      <div class="cert-card"><div class="cert-name">Cloud & DevOps / Transformación Continua</div><div class="cert-issuer">MIT Professional Education</div></div>
+      <div class="cert-card"><div class="cert-name">Machine Learning para Toma de Decisiones</div><div class="cert-issuer">MIT Professional Education</div></div>
+      <div class="cert-card"><div class="cert-name">Software Architecture & Design of Large Systems</div><div class="cert-issuer">Educación continua</div></div>
+      <div class="cert-card"><div class="cert-name">Liderazgo, OKRs y Gestión Ágil</div><div class="cert-issuer">Educación continua</div></div>
+      <div class="cert-card"><div class="cert-name">IA para Ejecutivos</div><div class="cert-issuer">Educación continua</div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <small>Bogotá, Colombia · jmontene@hotmail.com</small>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/joaquin-montenegro-perdomo-33226724/" target="_blank">LinkedIn</a>
+    <a href="tel:+57******1536">+57 *** *** 1536</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.skill-fill').forEach(f => {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) f.style.width = f.dataset.pct + '%';
+    }, { threshold: 0.2 }).observe(f);
+  });
+</script>
+</body>
+</html>
