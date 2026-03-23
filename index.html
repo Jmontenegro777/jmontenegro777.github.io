@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juan Díaz — Ingeniero de Software</title>
+  <title>Joaquín Montenegro — VP Transformación &amp; Tecnología | CTO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -15,7 +15,6 @@
       --blue-100: #B5D4F4;
       --blue-600: #185FA5;
       --blue-800: #0C447C;
-      --blue-900: #042C53;
       --green-50: #EAF3DE;
       --green-800:#27500A;
       --gray-50:  #F7F6F3;
@@ -41,9 +40,9 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 290px 1fr;
       min-height: 100vh;
-      max-width: 1100px;
+      max-width: 1140px;
       margin: 0 auto;
     }
 
@@ -57,26 +56,25 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     .avatar-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .avatar {
-      width: 96px;
-      height: 96px;
+      width: 88px; height: 88px;
       border-radius: 50%;
       background: var(--blue-50);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'DM Serif Display', serif;
-      font-size: 30px;
+      font-size: 26px;
       color: var(--blue-800);
       border: 3px solid #fff;
       box-shadow: 0 0 0 2px var(--blue-100);
@@ -84,30 +82,28 @@
 
     .sidebar-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 21px;
+      font-size: 19px;
       color: var(--gray-900);
       text-align: center;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     .sidebar-role {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--blue-600);
       text-align: center;
-      margin-top: 2px;
+      margin-top: 3px;
+      line-height: 1.4;
     }
 
     .sidebar-location {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--gray-400);
       text-align: center;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    .sidebar-divider {
-      height: 1px;
-      background: var(--gray-100);
-    }
+    .sidebar-divider { height: 1px; background: var(--gray-100); }
 
     .sidebar-section-title {
       font-size: 10px;
@@ -118,42 +114,32 @@
       margin-bottom: 10px;
     }
 
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .contact-list { display: flex; flex-direction: column; gap: 8px; }
 
     .contact-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--gray-700);
       text-decoration: none;
       transition: color 0.15s;
+      word-break: break-all;
     }
 
     .contact-item:hover { color: var(--blue-600); }
 
     .contact-icon {
-      width: 28px;
-      height: 28px;
+      width: 26px; height: 26px;
       background: var(--gray-50);
       border: 1px solid var(--gray-100);
       border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
       flex-shrink: 0;
     }
 
-    .nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .nav-list { display: flex; flex-direction: column; gap: 4px; }
 
     .nav-link {
       display: flex;
@@ -161,7 +147,7 @@
       gap: 10px;
       padding: 9px 12px;
       border-radius: var(--radius-md);
-      font-size: 14px;
+      font-size: 13px;
       color: var(--gray-700);
       text-decoration: none;
       transition: background 0.15s, color 0.15s;
@@ -175,7 +161,6 @@
       border-radius: 50%;
       background: var(--gray-200);
       flex-shrink: 0;
-      transition: background 0.15s;
     }
 
     .nav-link.active .nav-dot { background: var(--blue-600); }
@@ -184,7 +169,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
+      font-size: 11px;
       padding: 8px 12px;
       background: var(--green-50);
       color: var(--green-800);
@@ -196,6 +181,7 @@
       background: #63a828;
       border-radius: 50%;
       animation: pulse 2s infinite;
+      flex-shrink: 0;
     }
 
     @keyframes pulse {
@@ -203,6 +189,16 @@
       50% { opacity: 0.4; }
     }
 
+    /* ── Sidebar education block ── */
+    .edu-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .edu-item { font-size: 12px; line-height: 1.5; }
+
+    .edu-degree { font-weight: 500; color: var(--gray-900); }
+
+    .edu-school { color: var(--gray-400); }
+
+    /* ── Main ── */
     main {
       padding: 3rem 2.5rem;
       display: flex;
@@ -210,12 +206,10 @@
       gap: 3.5rem;
     }
 
-    .page-section {
-      animation: fadeUp 0.5s ease both;
-    }
+    .page-section { animation: fadeUp 0.5s ease both; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -234,17 +228,14 @@
       white-space: nowrap;
     }
 
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--gray-100);
-    }
+    .section-line { flex: 1; height: 1px; background: var(--gray-100); }
 
+    /* About */
     .about-text {
       font-size: 15px;
       line-height: 1.85;
       color: var(--gray-700);
-      max-width: 640px;
+      max-width: 660px;
     }
 
     .stats-grid {
@@ -270,11 +261,9 @@
       margin-bottom: 4px;
     }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--gray-400);
-    }
+    .stat-label { font-size: 12px; color: var(--gray-400); }
 
+    /* Experience */
     .job-item {
       padding: 1.5rem 0;
       border-bottom: 1px solid var(--gray-100);
@@ -287,14 +276,10 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
-    .job-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--gray-900);
-    }
+    .job-title { font-size: 16px; font-weight: 500; color: var(--gray-900); }
 
     .job-period-badge {
       font-size: 11px;
@@ -313,17 +298,28 @@
       padding: 2px 10px;
     }
 
-    .job-company {
-      font-size: 14px;
-      color: var(--blue-600);
-      margin-bottom: 10px;
+    .job-company { font-size: 13px; color: var(--blue-600); margin-bottom: 10px; }
+
+    .job-desc { font-size: 14px; line-height: 1.75; color: var(--gray-700); margin-bottom: 10px; }
+
+    .achievements { padding-left: 0; list-style: none; margin-bottom: 12px; display: flex; flex-direction: column; gap: 5px; }
+
+    .achievements li {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--gray-700);
+      padding-left: 14px;
+      position: relative;
     }
 
-    .job-desc {
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--gray-700);
-      margin-bottom: 12px;
+    .achievements li::before {
+      content: '';
+      width: 4px; height: 4px;
+      background: var(--blue-600);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 8px;
     }
 
     .tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -336,65 +332,7 @@
       border-radius: 100px;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 1rem;
-    }
-
-    .project-card {
-      background: #fff;
-      border: 1px solid var(--gray-100);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.2s, transform 0.2s;
-      text-decoration: none;
-    }
-
-    .project-card:hover {
-      border-color: var(--blue-100);
-      transform: translateY(-3px);
-    }
-
-    .project-icon {
-      font-size: 20px;
-      width: 44px; height: 44px;
-      background: var(--blue-50);
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .project-name {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--gray-900);
-      line-height: 1.3;
-    }
-
-    .project-desc {
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--gray-400);
-      flex: 1;
-    }
-
-    .project-links { display: flex; gap: 8px; margin-top: 4px; }
-
-    .project-link {
-      font-size: 12px;
-      color: var(--blue-600);
-      text-decoration: none;
-      padding: 4px 10px;
-      border: 1px solid var(--blue-100);
-      border-radius: var(--radius-sm);
-      transition: background 0.15s;
-    }
-
-    .project-link:hover { background: var(--blue-50); }
-
+    /* Skills */
     .skills-block { margin-bottom: 2rem; }
 
     .skills-block-title {
@@ -413,16 +351,10 @@
       margin-bottom: 14px;
     }
 
-    .skill-name {
-      font-size: 14px;
-      color: var(--gray-700);
-      width: 120px;
-      flex-shrink: 0;
-    }
+    .skill-name { font-size: 14px; color: var(--gray-700); width: 160px; flex-shrink: 0; }
 
     .skill-track {
-      flex: 1;
-      height: 5px;
+      flex: 1; height: 5px;
       background: var(--gray-100);
       border-radius: 3px;
       overflow: hidden;
@@ -436,12 +368,7 @@
       transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .skill-pct {
-      font-size: 12px;
-      color: var(--gray-400);
-      width: 32px;
-      text-align: right;
-    }
+    .skill-pct { font-size: 12px; color: var(--gray-400); width: 36px; text-align: right; }
 
     .pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
 
@@ -454,6 +381,28 @@
       color: var(--gray-700);
     }
 
+    /* Certs */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .cert-card {
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cert-name { font-size: 13px; font-weight: 500; color: var(--gray-900); line-height: 1.3; }
+
+    .cert-issuer { font-size: 12px; color: var(--blue-600); }
+
+    /* Progress bar */
     .progress-bar {
       position: fixed;
       top: 0; left: 0;
@@ -464,15 +413,9 @@
       transition: width 0.1s linear;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       .layout { grid-template-columns: 1fr; }
-      aside {
-        position: static;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--gray-100);
-        padding: 1.5rem;
-      }
+      aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--gray-100); padding: 1.5rem; }
       .nav-list { flex-direction: row; flex-wrap: wrap; }
       main { padding: 1.5rem; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -485,12 +428,13 @@
 
 <div class="layout">
 
+  <!-- ── Sidebar ── -->
   <aside>
     <div class="avatar-wrap">
-      <div class="avatar">JD</div>
+      <div class="avatar">JM</div>
       <div>
-        <div class="sidebar-name">Juan Díaz</div>
-        <div class="sidebar-role">Ingeniero de Software Senior</div>
+        <div class="sidebar-name">Joaquín Montenegro Perdomo</div>
+        <div class="sidebar-role">VP Transformación y Tecnología | CTO</div>
         <div class="sidebar-location">Bogotá, Colombia</div>
       </div>
     </div>
@@ -505,18 +449,52 @@
     <div>
       <div class="sidebar-section-title">Contacto</div>
       <div class="contact-list">
-        <a class="contact-item" href="mailto:juan@email.com">
-          <div class="contact-icon">✉</div>
-          juan@email.com
+        <a class="contact-item" href="tel:+57******1536">
+          <div class="contact-icon">&#9742;</div>
+          +57 *** *** 1536
         </a>
-        <a class="contact-item" href="https://linkedin.com/in/juandiaz" target="_blank">
+        <a class="contact-item" href="mailto:jmontene@hotmail.com">
+          <div class="contact-icon">&#9993;</div>
+          jmontene@hotmail.com
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/joaquin-montenegro-perdomo-33226724/" target="_blank">
           <div class="contact-icon">in</div>
-          linkedin.com/in/juandiaz
+          LinkedIn
         </a>
-        <a class="contact-item" href="https://github.com/juandiaz" target="_blank">
-          <div class="contact-icon">&lt;/&gt;</div>
-          github.com/juandiaz
-        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div>
+      <div class="sidebar-section-title">Idiomas</div>
+      <div class="contact-list">
+        <div class="contact-item"><div class="contact-icon">ES</div> Español — Nativo</div>
+        <div class="contact-item"><div class="contact-icon">EN</div> Inglés — Intermedio</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div>
+      <div class="sidebar-section-title">Formación académica</div>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div class="edu-degree">Certificate CTO — MIT Professional Education</div>
+          <div class="edu-school">Boston, EE. UU. · 2023–2024</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Especialización en Comercio Electrónico</div>
+          <div class="edu-school">Uniandes · 2007</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Especialización en Administración</div>
+          <div class="edu-school">Colegio Mayor del Rosario · 1998–1999</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Ingeniería de Sistemas</div>
+          <div class="edu-school">Politécnico Grancolombiano · 1991</div>
+        </div>
       </div>
     </div>
 
@@ -525,125 +503,175 @@
     <div>
       <div class="sidebar-section-title">Navegación</div>
       <nav class="nav-list">
-        <a class="nav-link active" href="#sobre-mi"><div class="nav-dot"></div> Sobre mí</a>
+        <a class="nav-link active" href="#sobre-mi"><div class="nav-dot"></div> Perfil ejecutivo</a>
         <a class="nav-link" href="#experiencia"><div class="nav-dot"></div> Experiencia</a>
-        <a class="nav-link" href="#proyectos"><div class="nav-dot"></div> Proyectos</a>
         <a class="nav-link" href="#habilidades"><div class="nav-dot"></div> Habilidades</a>
+        <a class="nav-link" href="#certificaciones"><div class="nav-dot"></div> Certificaciones</a>
       </nav>
     </div>
   </aside>
 
+  <!-- ── Main ── -->
   <main>
 
+    <!-- Perfil ejecutivo -->
     <section class="page-section" id="sobre-mi">
       <div class="section-header">
-        <h2 class="section-heading">Sobre mí</h2>
+        <h2 class="section-heading">Perfil ejecutivo</h2>
         <div class="section-line"></div>
       </div>
       <p class="about-text">
-        Ingeniero de software con más de 6 años de experiencia diseñando y desarrollando sistemas escalables en entornos de alta disponibilidad. Apasionado por la arquitectura de microservicios, la integración continua y la entrega de soluciones de impacto real. Trabajo con equipos ágiles y disfruto resolver problemas complejos con soluciones elegantes.
+        Ejecutivo senior en tecnología y transformación digital, Ingeniero de Sistemas con especializaciones en Administración y Comercio Electrónico, y formación ejecutiva en Alta Dirección de Tecnología (MIT). Más de 25 años de experiencia liderando estrategias tecnológicas, transformación cultural y digital, arquitecturas Cloud y On-Premise, y creación de bancos digitales y ecosistemas financieros complejos en América Latina. Amplia trayectoria asesorando Juntas Directivas y Presidencias, gestionando presupuestos de gran escala y liderando equipos multidisciplinarios de alto desempeño en el sector financiero.
       </p>
       <div class="stats-grid">
         <div class="stat-card">
-          <span class="stat-num">6+</span>
+          <span class="stat-num">25+</span>
           <span class="stat-label">Años de experiencia</span>
         </div>
         <div class="stat-card">
-          <span class="stat-num">20+</span>
-          <span class="stat-label">Proyectos entregados</span>
+          <span class="stat-num">+1M</span>
+          <span class="stat-label">Clientes en Lulo Bank</span>
         </div>
         <div class="stat-card">
-          <span class="stat-num">8</span>
-          <span class="stat-label">Tecnologías principales</span>
+          <span class="stat-num">$70M</span>
+          <span class="stat-label">Presupuesto gestionado (USD)</span>
         </div>
       </div>
     </section>
 
+    <!-- Experiencia -->
     <section class="page-section" id="experiencia">
       <div class="section-header">
-        <h2 class="section-heading">Experiencia</h2>
+        <h2 class="section-heading">Experiencia profesional</h2>
         <div class="section-line"></div>
       </div>
 
+      <!-- GNB actual -->
       <div class="job-item">
         <div class="job-meta">
-          <span class="job-title">Ingeniero de Software Senior</span>
-          <span class="job-period-badge">2022 — Presente</span>
+          <span class="job-title">Vicepresidente de Transformación y Tecnología</span>
+          <span class="job-period-badge">May 2025 — Actualidad</span>
           <span class="job-current">Actual</span>
         </div>
-        <div class="job-company">TechCorp S.A.S · Bogotá</div>
-        <p class="job-desc">Lideré el diseño e implementación de una plataforma de pagos procesando más de 500k transacciones mensuales. Reduje la latencia promedio en un 40% mediante refactorización de microservicios y caché distribuida.</p>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <p class="job-desc">Responsable de la estrategia integral de tecnología y transformación digital para Banco GNB Sudameris Colombia, Servibanca, Servivalores, Fiduciaria Sevitrust, Corporación Financiera y filiales en Perú y Paraguay.</p>
+        <ul class="achievements">
+          <li>Definición de la estrategia de transformación cultural y digital del Grupo GNB.</li>
+          <li>Estructuración y gestión de un presupuesto de USD 70M para la agenda de transformación.</li>
+          <li>Diseño e implementación de la Fábrica de Transformación bajo modelo ágil (Canales, Banca Personas, Banca Empresas, Libranzas, Datos, Analítica Avanzada e IA).</li>
+          <li>Lanzamiento de productos digitales: nodo Bre-B Servibanca, onboarding digital en 5 minutos, crédito digital de libranzas, recaudo y dispersión omnicanal (WhatsApp, web, móvil, APIs, POS).</li>
+          <li>Implementación de Data Lake en Snowflake para analítica avanzada e inteligencia artificial.</li>
+          <li>Impulso de cultura ágil mediante OKRs, capacitación masiva (Platzi) y herramientas de productividad e IA.</li>
+        </ul>
         <div class="tags">
-          <span class="tag">Python</span><span class="tag">AWS</span><span class="tag">Kafka</span><span class="tag">PostgreSQL</span><span class="tag">Microservicios</span>
+          <span class="tag">Transformación Digital</span>
+          <span class="tag">Cloud</span>
+          <span class="tag">Snowflake</span>
+          <span class="tag">IA</span>
+          <span class="tag">OKRs</span>
+          <span class="tag">Agile</span>
         </div>
       </div>
 
+      <!-- Lulo Bank -->
       <div class="job-item">
         <div class="job-meta">
-          <span class="job-title">Desarrollador Backend</span>
-          <span class="job-period-badge">2019 — 2022</span>
+          <span class="job-title">Vicepresidente de Tecnología (CTO)</span>
+          <span class="job-period-badge">Sep 2020 — Abr 2025</span>
         </div>
-        <div class="job-company">Innova Digital · Medellín</div>
-        <p class="job-desc">Desarrollé APIs REST y servicios internos para una startup de logística. Implementé integraciones con terceros (GPS, facturación electrónica DIAN) y automaticé pipelines de CI/CD con GitHub Actions.</p>
+        <div class="job-company">Lulo Bank S.A. — Primer Banco Digital en Colombia · Bogotá</div>
+        <p class="job-desc">Liderazgo de la estrategia tecnológica para la creación, lanzamiento y escalamiento del primer banco digital 100% cloud en Colombia.</p>
+        <ul class="achievements">
+          <li>Activación y operación del banco digital autorizado por la Superintendencia Financiera de Colombia.</li>
+          <li>Más de 1 millón de clientes en los primeros años de operación.</li>
+          <li>Arquitectura 100% Cloud, modular y basada en microservicios y contenedores, con uptime superior al 99,5%.</li>
+          <li>Gestión integral del ecosistema core y digital bajo modelos Agile, DevOps y CI/CD.</li>
+          <li>Miembro del comité de inversiones; gestión de presupuesto de USD 30M.</li>
+          <li>Liderazgo en estrategia de datos, analítica avanzada, IA y gobierno de datos.</li>
+        </ul>
         <div class="tags">
-          <span class="tag">Node.js</span><span class="tag">Docker</span><span class="tag">MongoDB</span><span class="tag">REST APIs</span>
+          <span class="tag">Cloud Nativo</span>
+          <span class="tag">Microservicios</span>
+          <span class="tag">DevOps</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Banca Digital</span>
+          <span class="tag">Data Governance</span>
         </div>
       </div>
 
+      <!-- GNB Proyectos -->
       <div class="job-item">
         <div class="job-meta">
-          <span class="job-title">Desarrollador Junior</span>
-          <span class="job-period-badge">2018 — 2019</span>
+          <span class="job-title">Vicepresidente de Proyectos</span>
+          <span class="job-period-badge">Ene 2019 — Ago 2020</span>
         </div>
-        <div class="job-company">Freelance</div>
-        <p class="job-desc">Construcción de sitios web y aplicaciones a medida para clientes de pequeñas y medianas empresas en Colombia.</p>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="achievements">
+          <li>Dirección de la transformación tecnológica del Grupo GNB y creación de Lulo Bank S.A.</li>
+          <li>Reporte directo a accionistas (Familia Gilinski); miembro del comité de inversiones de Lulo Bank (USD 50M).</li>
+          <li>Definición del stack tecnológico, arquitectura cloud y modelo operativo ágil.</li>
+          <li>Participación clave en la obtención de la licencia bancaria ante la Superintendencia Financiera.</li>
+        </ul>
         <div class="tags">
-          <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">PHP</span>
+          <span class="tag">Arquitectura Cloud</span>
+          <span class="tag">Licencia Bancaria</span>
+          <span class="tag">Estrategia TI</span>
         </div>
+      </div>
+
+      <!-- GNB VP Tecnología -->
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Vicepresidente de Tecnología</span>
+          <span class="job-period-badge">Jul 2017 — Dic 2018</span>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="achievements">
+          <li>Planeación estratégica de tecnología para múltiples empresas del grupo.</li>
+          <li>Gestión de más de 220 colaboradores y presupuestos cercanos a USD 70M.</li>
+          <li>Liderazgo de proyectos de banca digital, modernización de libranzas, cajeros automáticos, fiduciaria y comisionista.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Banca Digital</span>
+          <span class="tag">Gestión de Equipos</span>
+          <span class="tag">Presupuesto TI</span>
+        </div>
+      </div>
+
+      <!-- GNB Gerente -->
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Gerente de Tecnología y Banca Electrónica</span>
+          <span class="job-period-badge">Jul 1997 — Jun 2017</span>
+        </div>
+        <div class="job-company">Grupo GNB Sudameris · Bogotá</div>
+        <ul class="achievements">
+          <li>Liderazgo tecnológico en procesos de fusiones y adquisiciones (HSBC, Sudameris, Tequendama).</li>
+          <li>Modernización de banca virtual, medios de pago y plataformas core.</li>
+          <li>Implementación de marcos regulatorios (SARC, Circulares SFC, COBIT, ITIL).</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">M&amp;A</span>
+          <span class="tag">COBIT</span>
+          <span class="tag">ITIL</span>
+          <span class="tag">Core Bancario</span>
+        </div>
+      </div>
+
+      <!-- Experiencia inicial -->
+      <div class="job-item">
+        <div class="job-meta">
+          <span class="job-title">Experiencia inicial</span>
+        </div>
+        <ul class="achievements">
+          <li><strong>Director de Proyectos</strong> — BV Software Colombia (1996–1997)</li>
+          <li><strong>Gerente de Sistemas</strong> — Crecer S.A. (1994–1996)</li>
+          <li><strong>Analista de Sistemas</strong> — Banco Colpatria (1992–1994)</li>
+        </ul>
       </div>
     </section>
 
-    <section class="page-section" id="proyectos">
-      <div class="section-header">
-        <h2 class="section-heading">Proyectos</h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="projects-grid">
-
-        <div class="project-card">
-          <div class="project-icon">📊</div>
-          <div class="project-name">Plataforma de métricas en tiempo real</div>
-          <div class="project-desc">Dashboard para monitoreo de KPIs operativos con alertas automáticas. Maneja +1M eventos/día usando WebSockets y Redis Pub/Sub.</div>
-          <div class="tags"><span class="tag">React</span><span class="tag">Redis</span><span class="tag">Go</span></div>
-          <div class="project-links">
-            <a class="project-link" href="#">Demo</a>
-            <a class="project-link" href="#">GitHub</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-icon">🔐</div>
-          <div class="project-name">Auth Service con OAuth 2.0</div>
-          <div class="project-desc">Servicio de autenticación centralizado compatible con múltiples proveedores sociales. Incluye MFA, sesiones y rotación de tokens.</div>
-          <div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">JWT</span></div>
-          <div class="project-links">
-            <a class="project-link" href="#">GitHub</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-icon">🚛</div>
-          <div class="project-name">Sistema de rastreo logístico</div>
-          <div class="project-desc">API de geolocalización y tracking de envíos para una startup. Integración con Google Maps y notificaciones SMS automáticas.</div>
-          <div class="tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Twilio</span></div>
-          <div class="project-links">
-            <a class="project-link" href="#">Demo</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
+    <!-- Habilidades -->
     <section class="page-section" id="habilidades">
       <div class="section-header">
         <h2 class="section-heading">Habilidades</h2>
@@ -651,31 +679,69 @@
       </div>
 
       <div class="skills-block">
-        <div class="skills-block-title">Lenguajes</div>
-        <div class="skill-row"><span class="skill-name">Python</span><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
-        <div class="skill-row"><span class="skill-name">JavaScript</span><div class="skill-track"><div class="skill-fill" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
-        <div class="skill-row"><span class="skill-name">Go</span><div class="skill-track"><div class="skill-fill" data-pct="65"></div></div><span class="skill-pct">65%</span></div>
-        <div class="skill-row"><span class="skill-name">SQL</span><div class="skill-track"><div class="skill-fill" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
+        <div class="skills-block-title">Estrategia y liderazgo tecnológico</div>
+        <div class="skill-row"><span class="skill-name">Transformación Digital</span><div class="skill-track"><div class="skill-fill" data-pct="97"></div></div><span class="skill-pct">97%</span></div>
+        <div class="skill-row"><span class="skill-name">Arquitectura Cloud</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
+        <div class="skill-row"><span class="skill-name">Gobierno de Datos</span><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
+        <div class="skill-row"><span class="skill-name">Inteligencia Artificial</span><div class="skill-track"><div class="skill-fill" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
+        <div class="skill-row"><span class="skill-name">Banca Digital</span><div class="skill-track"><div class="skill-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
       </div>
 
       <div class="skills-block">
-        <div class="skills-block-title">Herramientas y plataformas</div>
-        <div class="skill-row"><span class="skill-name">AWS</span><div class="skill-track"><div class="skill-fill" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
-        <div class="skill-row"><span class="skill-name">Docker</span><div class="skill-track"><div class="skill-fill" data-pct="88"></div></div><span class="skill-pct">88%</span></div>
-        <div class="skill-row"><span class="skill-name">Kubernetes</span><div class="skill-track"><div class="skill-fill" data-pct="60"></div></div><span class="skill-pct">60%</span></div>
-        <div class="skill-row"><span class="skill-name">Git / CI·CD</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
-        <div class="skill-row"><span class="skill-name">Kafka</span><div class="skill-track"><div class="skill-fill" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
+        <div class="skills-block-title">Gestión ejecutiva</div>
+        <div class="skill-row"><span class="skill-name">Gestión Presupuestal</span><div class="skill-track"><div class="skill-fill" data-pct="95"></div></div><span class="skill-pct">95%</span></div>
+        <div class="skill-row"><span class="skill-name">Liderazgo de Equipos</span><div class="skill-track"><div class="skill-fill" data-pct="96"></div></div><span class="skill-pct">96%</span></div>
+        <div class="skill-row"><span class="skill-name">OKRs / Agile</span><div class="skill-track"><div class="skill-fill" data-pct="90"></div></div><span class="skill-pct">90%</span></div>
+        <div class="skill-row"><span class="skill-name">Gestión del Cambio</span><div class="skill-track"><div class="skill-fill" data-pct="92"></div></div><span class="skill-pct">92%</span></div>
       </div>
 
       <div class="skills-block">
-        <div class="skills-block-title">Metodologías</div>
+        <div class="skills-block-title">Metodologías y marcos</div>
         <div class="pills-row">
-          <span class="pill">Scrum / Agile</span>
+          <span class="pill">DevOps / CI·CD</span>
           <span class="pill">Microservicios</span>
-          <span class="pill">Domain-Driven Design</span>
-          <span class="pill">Test-Driven Development</span>
-          <span class="pill">CI / CD</span>
-          <span class="pill">Code Review</span>
+          <span class="pill">Scrum / Kanban</span>
+          <span class="pill">COBIT</span>
+          <span class="pill">ITIL</span>
+          <span class="pill">Snowflake</span>
+          <span class="pill">Data Lake</span>
+          <span class="pill">Analítica Avanzada</span>
+          <span class="pill">Regulación Financiera (SFC)</span>
+          <span class="pill">M&amp;A Tecnológico</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificaciones -->
+    <section class="page-section" id="certificaciones">
+      <div class="section-header">
+        <h2 class="section-heading">Certificaciones</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-name">Alta Dirección en Tecnología (CTO)</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Cloud &amp; DevOps / Transformación Continua</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Machine Learning para Toma de Decisiones</div>
+          <div class="cert-issuer">MIT Professional Education</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Software Architecture &amp; Design of Large Systems</div>
+          <div class="cert-issuer">Educación continua</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">Liderazgo, OKRs y Gestión Ágil</div>
+          <div class="cert-issuer">Educación continua</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-name">IA para Ejecutivos</div>
+          <div class="cert-issuer">Educación continua</div>
         </div>
       </div>
     </section>
@@ -689,44 +755,27 @@
     document.getElementById('progress').style.width = pct + '%';
   });
 
-  const sections = document.querySelectorAll('.page-section');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
-    });
-  }, { threshold: 0.4 }).observe && sections.forEach(s =>
+  document.querySelectorAll('.page-section').forEach(section => {
     new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          navLinks.forEach(l => l.classList.remove('active'));
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
           const a = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
           if (a) a.classList.add('active');
         }
       });
-    }, { threshold: 0.4 }).observe(s)
-  );
+    }, { threshold: 0.3 }).observe(section);
+  });
 
-  new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.width = entry.target.dataset.pct + '%';
-      }
-    });
-  }, { threshold: 0.1 }).observe && document.querySelectorAll('.skill-fill').forEach(f =>
+  document.querySelectorAll('.skill-fill').forEach(f => {
     new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.style.width = entry.target.dataset.pct + '%';
         }
       });
-    }, { threshold: 0.1 }).observe(f)
-  );
+    }, { threshold: 0.1 }).observe(f);
+  });
 </script>
 </body>
 </html>
